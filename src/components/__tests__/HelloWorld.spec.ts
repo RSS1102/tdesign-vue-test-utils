@@ -5,7 +5,17 @@ import HelloWorld from '../HelloWorld.vue'
 
 describe('HelloWorld', () => {
   it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
-    expect(wrapper.text()).toContain('Hello Vitest')
+    const placeholder = '选择日期'
+    const wrapper = mount(HelloWorld, { props: { placeholder: placeholder, customClass: 'test-date-picker' }, attachTo: document.body })
+
+    const input = wrapper.find('input');
+    expect(input.attributes('placeholder')).toBe(placeholder);
+
+    const datepicker = wrapper.find('.test-date-picker');
+    expect(datepicker.exists()).toBe(true);
+    datepicker.trigger('click');
+    
+    const popup = wrapper.findAll('.t-popup');
+    console.log(popup.length);
   })
 })
